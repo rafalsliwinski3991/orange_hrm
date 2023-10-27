@@ -4,6 +4,7 @@ import repo.orange_hrm.pages.login_page as login_page
 import repo.orange_hrm.pages.dashboard_page as dashboard_page
 from repo.orange_hrm.fixture.page_base import PageBase
 from repo.orange_hrm.fixture.application import Application
+from repo.orange_hrm.fixture.session import SessionHelper
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
@@ -13,6 +14,7 @@ wd.maximize_window()
 
 page_base = PageBase(wd, 10)
 app = Application(wd, 10)
+session = SessionHelper()
 
 """
 PRECONDITIONS:
@@ -35,4 +37,4 @@ def test_login():
     page_base.click_element('xpath', login_page.login_button)  # Step 4
     assert wd.current_url == dashboard_page.page_url  # Step 5
     app.logout_from_app()  # Step 6
-    wd.quit()
+    session.quit_session()
