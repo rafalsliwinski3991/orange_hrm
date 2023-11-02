@@ -1,4 +1,6 @@
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 import repo.orange_hrm.pages.login_page as login_page
 import repo.orange_hrm.pages.header as header
 from repo.orange_hrm.fixture.page_base import PageBase
@@ -8,7 +10,9 @@ from repo.orange_hrm.fixture.session import SessionHelper
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 
-wd = webdriver.Chrome(options=options)
+service = Service(ChromeDriverManager().install())
+
+wd = webdriver.Chrome(service=service, options=options)
 wd.maximize_window()
 
 page_base = PageBase(wd, 10)

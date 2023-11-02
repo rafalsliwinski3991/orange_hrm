@@ -18,6 +18,10 @@ class PageBase:
     def navigate_to_page(self, page_url):
         self.wd.get(page_url)
 
+    def wait_for_element_to_be_visible(self, locator_type, locator_value):
+        wait = WebDriverWait(self.wd, 10)
+        wait.until(EC.visibility_of_element_located((self.types[locator_type], locator_value)))
+
     def click_element(self, locator_type, locator_value):
         wait = WebDriverWait(self.wd, 10)
         wait.until(EC.element_to_be_clickable((self.types[locator_type], locator_value)))
