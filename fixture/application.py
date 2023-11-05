@@ -14,12 +14,12 @@ class Application(PageBase):
         self.fill_input('xpath', locator_value, password_value)
 
     def click_login_button(self):
-        self.click_element('xpath', login_page.login_button)
+        self.click_element('xpath', login_page.buttons['login'])
 
     def login_to_app(self):
         self.navigate_to_page(login_page.page_url)
-        self.enter_username(login_page.login_input, login_data.login_correct_value)
-        self.enter_password(login_page.password_input, login_data.password_correct_value)
+        self.enter_username(login_page.inputs['login'], login_data.logins['correct_value'])
+        self.enter_password(login_page.inputs['password'], login_data.passwords['correct_value'])
         self.click_login_button()
 
     def logout_from_app(self):
@@ -27,10 +27,10 @@ class Application(PageBase):
         self.click_element('xpath', header.logout_option)
 
     def click_reset_password_button(self):
-        self.click_element('xpath', pwd_reset_page.reset_password_button)  # Step 3
+        self.click_element('xpath', pwd_reset_page.buttons['reset_password'])  # Step 3
 
     def click_forgot_your_password_link(self):
-        self.click_element('xpath', login_page.forgot_your_password_link)
+        self.click_element('xpath', login_page.links['forgot_your_password'])
 
     def click_cancel_password_reset_button(self):
-        self.click_element('xpath', pwd_reset_page.cancel_button)
+        self.click_element('xpath', pwd_reset_page.buttons['cancel'])
