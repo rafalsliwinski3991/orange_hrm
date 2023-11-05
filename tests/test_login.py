@@ -28,7 +28,7 @@ PRECONDITIONS:
 
 STEPS:
 1. Navigate to login page. -> Login page is displayed.
-2. Fill the 'username' field. -> User name is entered.
+2. Fill the 'username' field. -> Username is entered.
 3. Fill the 'password' field. -> Password is entered.
 4. Click the 'Login' button. -> Button is clicked, dashboard page is displayed.
 5. ASSERTION - check if current URL matches dashboard page URL.
@@ -38,8 +38,8 @@ STEPS:
 
 def test_login_successful():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_username(login_data.login_correct_value)  # Step 2
-    app.enter_password(login_data.password_correct_value)  # Step 3
+    app.enter_username(login_page.login_input, login_data.login_correct_value)  # Step 2
+    app.enter_password(login_page.password_input, login_data.password_correct_value)  # Step 3
     app.click_login_button()  # Step 4
     assert wd.current_url == dashboard_page.page_url  # Step 5
     app.logout_from_app()  # Step 6
@@ -54,7 +54,7 @@ PRECONDITIONS:
 
 STEPS:
 1. Navigate to login page. -> Login page is displayed.
-2. Fill the 'username' field. -> User name is entered.
+2. Fill the 'username' field. -> Username is entered.
 3. Fill the 'password' field. -> Password is entered.
 4. Click the 'Login' button. -> Button is clicked, error message is displayed.
 5. ASSERTION - check if current URL matches login page URL.
@@ -64,8 +64,8 @@ STEPS:
 
 def test_login_incorrect_username():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_username(login_data.login_incorrect_value)  # Step 2
-    app.enter_password(login_data.password_correct_value)  # Step 3
+    app.enter_username(login_page.login_input, login_data.login_incorrect_value)  # Step 2
+    app.enter_password(login_page.password_input, login_data.password_correct_value)  # Step 3
     app.click_login_button()  # Step 4
     assert wd.current_url == login_page.page_url  # Step 5
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_message['invalid_credentials'])
@@ -82,7 +82,7 @@ PRECONDITIONS:
 
 STEPS:
 1. Navigate to login page. -> Login page is displayed.
-2. Fill the 'username' field. -> User name is entered.
+2. Fill the 'username' field. -> Username is entered.
 3. Fill the 'password' field. -> Password is entered.
 4. Click the 'Login' button. -> Button is clicked, error message is displayed.
 5. ASSERTION - check if current URL matches login page URL.
@@ -92,8 +92,8 @@ STEPS:
 
 def test_login_incorrect_password():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_username(login_data.login_correct_value)  # Step 2
-    app.enter_password(login_data.password_incorrect_value)  # Step 3
+    app.enter_username(login_page.login_input, login_data.login_correct_value)  # Step 2
+    app.enter_password(login_page.password_input, login_data.password_incorrect_value)  # Step 3
     app.click_login_button()  # Step 4
     assert wd.current_url == login_page.page_url  # Step 5
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_message['invalid_credentials'])
@@ -119,7 +119,7 @@ STEPS:
 
 def test_login_no_username():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_password(login_data.password_correct_value)  # Step 2
+    app.enter_password(login_page.password_input, login_data.password_correct_value)  # Step 2
     app.click_login_button()  # Step 3
     assert wd.current_url == login_page.page_url  # Step 4
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_message['missing_username'])
@@ -145,7 +145,7 @@ STEPS:
 
 def test_login_no_password():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_username(login_data.login_correct_value)  # Step 2
+    app.enter_username(login_page.login_input, login_data.login_correct_value)  # Step 2
     app.click_login_button()  # Step 3
     assert wd.current_url == login_page.page_url  # Step 4
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_message['missing_password'])

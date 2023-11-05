@@ -7,3 +7,4 @@ error_message = {
     'missing_username': '//label[text()="Username"]/following::span[1]',
     'missing_password': '//label[text()="Password"]/following::span[1]'
 }
+forgot_your_password_link = '//p[text()="Forgot your password? "]'
