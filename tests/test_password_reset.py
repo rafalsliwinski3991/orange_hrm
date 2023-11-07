@@ -41,9 +41,9 @@ is displayed.
 
 def test_password_reset_successful():
     page_base.navigate_to_page(login_page.page_url)  # Precondition 2
-    app.click_forgot_your_password_link()  # Step 1
+    page_base.click_link('xpath', login_page.links['forgot_your_password'])  # Step 1
     app.enter_username(pwd_reset_page.inputs['username'], login_data.logins['correct_value'])  # Step 2
-    app.click_reset_password_button()  # Step 3
+    page_base.click_button('xpath', pwd_reset_page.buttons['reset_password'])  # Step 3
     assert wd.current_url == pwd_confirmed_reset_page.page_url  # Step 4
     page_base.wait_for_element_to_be_visible('xpath', pwd_confirmed_reset_page.modal_header)
     assert wd.find_element(page_base.types['xpath'], pwd_confirmed_reset_page.modal_header).is_displayed()  # Step 5
@@ -66,8 +66,8 @@ STEPS:
 
 def test_password_reset_cancelled_with_username_not_filled():
     page_base.navigate_to_page(login_page.page_url)  # Precondition 2
-    app.click_forgot_your_password_link()  # Step 1
-    app.click_cancel_password_reset_button()  # Step 2
+    page_base.click_link('xpath', login_page.links['forgot_your_password'])  # Step 1
+    page_base.click_button('xpath', pwd_reset_page.buttons['cancel'])  # Step 2
     assert wd.current_url == login_page.page_url  # Step 3
     session.quit_session()
 
@@ -89,9 +89,9 @@ STEPS:
 
 def test_password_reset_cancelled_with_username_filled():
     page_base.navigate_to_page(login_page.page_url)  # Precondition 2
-    app.click_forgot_your_password_link()  # Step 1
+    page_base.click_link('xpath', login_page.links['forgot_your_password'])  # Step 1
     app.enter_username(pwd_reset_page.inputs['username'], login_data.logins['correct_value'])  # Step 2
-    app.click_cancel_password_reset_button()  # Step 3
+    page_base.click_button('xpath', pwd_reset_page.buttons['cancel'])  # Step 3
     assert wd.current_url == login_page.page_url  # Step 4
     session.quit_session()
 
@@ -113,8 +113,8 @@ STEPS:
 
 def test_password_reset_empty_username():
     page_base.navigate_to_page(login_page.page_url)  # Precondition 2
-    app.click_forgot_your_password_link()  # Step 1
-    app.click_reset_password_button()  # Step 2
+    page_base.click_link('xpath', login_page.links['forgot_your_password'])  # Step 1
+    page_base.click_button('xpath', pwd_reset_page.buttons['reset_password'])  # Step 2
     assert wd.current_url == pwd_reset_page.page_url  # Step 3
     page_base.wait_for_element_to_be_visible('xpath', pwd_reset_page.error_messages['missing_username'])
     assert wd.find_element(page_base.types['xpath'], pwd_reset_page.error_messages['missing_username']).text == \

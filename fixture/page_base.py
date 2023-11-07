@@ -31,3 +31,9 @@ class PageBase:
         self.click_element(self.types[locator_type], locator_value)
         self.wd.find_element(self.types[locator_type], locator_value).clear()
         self.wd.find_element(self.types[locator_type], locator_value).send_keys(data_value)
+
+    def click_button(self, locator_type, locator_value):
+        self.click_element(self.types[locator_type], locator_value)
+
+    def click_link(self, locator_type, locator_value):
+        self.click_element(self.types[locator_type], locator_value)

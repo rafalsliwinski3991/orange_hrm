@@ -25,12 +25,3 @@ class Application(PageBase):
     def logout_from_app(self):
         self.click_element('xpath', header.user_dropdown)
         self.click_element('xpath', header.logout_option)
-
-    def click_reset_password_button(self):
-        self.click_element('xpath', pwd_reset_page.buttons['reset_password'])  # Step 3
-
-    def click_forgot_your_password_link(self):
-        self.click_element('xpath', login_page.links['forgot_your_password'])
-
-    def click_cancel_password_reset_button(self):
-        self.click_element('xpath', pwd_reset_page.buttons['cancel'])
