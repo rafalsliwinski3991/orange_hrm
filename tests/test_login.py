@@ -40,7 +40,7 @@ def test_login_successful():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
     app.enter_username(login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
     app.enter_password(login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 3
-    app.click_login_button()  # Step 4
+    page_base.click_button('xpath', login_page.buttons['login'])  # Step 4
     assert wd.current_url == dashboard_page.page_url  # Step 5
     app.logout_from_app()  # Step 6
     session.quit_session()
@@ -66,7 +66,7 @@ def test_login_incorrect_username():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
     app.enter_username(login_page.inputs['login'], login_data.logins['incorrect_value'])  # Step 2
     app.enter_password(login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 3
-    app.click_login_button()  # Step 4
+    page_base.click_button('xpath', login_page.buttons['login'])  # Step 4
     assert wd.current_url == login_page.page_url  # Step 5
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['invalid_credentials'])
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['invalid_credentials']).text == \
@@ -94,7 +94,7 @@ def test_login_incorrect_password():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
     app.enter_username(login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
     app.enter_password(login_page.inputs['password'], login_data.passwords['incorrect_value'])  # Step 3
-    app.click_login_button()  # Step 4
+    page_base.click_button('xpath', login_page.buttons['login'])  # Step 4
     assert wd.current_url == login_page.page_url  # Step 5
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['invalid_credentials'])
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['invalid_credentials']).text == \
@@ -120,7 +120,7 @@ STEPS:
 def test_login_no_username():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
     app.enter_password(login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 2
-    app.click_login_button()  # Step 3
+    page_base.click_button('xpath', login_page.buttons['login'])  # Step 3
     assert wd.current_url == login_page.page_url  # Step 4
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['missing_username'])
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['missing_username']).text == \
@@ -146,7 +146,7 @@ STEPS:
 def test_login_no_password():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
     app.enter_username(login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
-    app.click_login_button()  # Step 3
+    page_base.click_button('xpath', login_page.buttons['login'])  # Step 3
     assert wd.current_url == login_page.page_url  # Step 4
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['missing_password'])
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['missing_password']).text == \
@@ -170,7 +170,7 @@ STEPS:
 
 def test_login_no_username_and_password():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.click_login_button()  # Step 2
+    page_base.click_button('xpath', login_page.buttons['login'])  # Step 2
     assert wd.current_url == login_page.page_url  # Step 3
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['missing_username'])
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['missing_password'])
