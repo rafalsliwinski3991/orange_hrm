@@ -19,11 +19,15 @@ class PageBase:
         self.wd.get(page_url)
 
     def wait_for_element_to_be_visible(self, locator_type, locator_value):
-        wait = WebDriverWait(self.wd, 5)
+        wait = WebDriverWait(self.wd, 10)
         wait.until(EC.visibility_of_element_located((self.types[locator_type], locator_value)))
 
+    def wait_for_text_to_be_present(self, locator_type, locator_value, desired_text):
+        wait = WebDriverWait(self.wd, 10)
+        wait.until(EC.text_to_be_present_in_element((self.types[locator_type], locator_value), desired_text))
+
     def click_element(self, locator_type, locator_value):
-        wait = WebDriverWait(self.wd, 5)
+        wait = WebDriverWait(self.wd, 10)
         wait.until(EC.element_to_be_clickable((self.types[locator_type], locator_value)))
         self.wd.find_element(self.types[locator_type], locator_value).click()
 

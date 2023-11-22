@@ -34,19 +34,22 @@ STEPS:
 2. Fill the 'Username' field. -> Username is entered.
 3. Click the 'Reset Password' button. -> Button is clicked, modal with title 'Reset Password link sent successfully'
 is displayed.
-4. ASSERTION - check if current URL matches password reset confirmation page URL.
-5. ASSERTION - check if modal with proper title is displayed.
+
+ASSERTIONS:
+1. Check if current URL matches password reset confirmation page URL.
+2. Check if modal with proper title is displayed.
 """
 
 
 def test_password_reset_successful():
     page_base.navigate_to_page(login_page.page_url)  # Precondition 2
     page_base.click_link('xpath', login_page.links['forgot_your_password'])  # Step 1
-    app.enter_username(pwd_reset_page.inputs['username'], login_data.logins['correct_value'])  # Step 2
+    page_base.fill_input('xpath', pwd_reset_page.inputs['username'], login_data.logins['correct_value'])  # Step 2
     page_base.click_button('xpath', pwd_reset_page.buttons['reset_password'])  # Step 3
-    assert wd.current_url == pwd_confirmed_reset_page.page_url  # Step 4
+    assert wd.current_url == pwd_confirmed_reset_page.page_url  # Assertion 1
     page_base.wait_for_element_to_be_visible('xpath', pwd_confirmed_reset_page.modal_header)
-    assert wd.find_element(page_base.types['xpath'], pwd_confirmed_reset_page.modal_header).is_displayed()  # Step 5
+    assert wd.find_element(page_base.types['xpath'], pwd_confirmed_reset_page.modal_header).is_displayed()
+    # Assertion 2
     session.quit_session()
 
 
@@ -60,7 +63,9 @@ PRECONDITIONS:
 STEPS:
 1. Click the 'Forgot your password' link. -> 'Reset Password' modal is displayed.
 2. Click the 'Cancel' button. -> Login page is displayed.
-3. ASSERTION - check if current URL matches login page URL.
+
+ASSERTIONS:
+1. Check if current URL matches login page URL.
 """
 
 
@@ -68,7 +73,7 @@ def test_password_reset_cancelled_with_username_not_filled():
     page_base.navigate_to_page(login_page.page_url)  # Precondition 2
     page_base.click_link('xpath', login_page.links['forgot_your_password'])  # Step 1
     page_base.click_button('xpath', pwd_reset_page.buttons['cancel'])  # Step 2
-    assert wd.current_url == login_page.page_url  # Step 3
+    assert wd.current_url == login_page.page_url  # Assertion 1
     session.quit_session()
 
 
@@ -83,16 +88,18 @@ STEPS:
 1. Click the 'Forgot your password' link. -> 'Reset Password' modal is displayed.
 2. Fill the 'Username' field. -> Username is entered.
 3. Click the 'Cancel' button. -> Login page is displayed.
-4. ASSERTION - check if current URL matches login page URL.
+
+ASSERTIONS:
+1. Check if current URL matches login page URL.
 """
 
 
 def test_password_reset_cancelled_with_username_filled():
     page_base.navigate_to_page(login_page.page_url)  # Precondition 2
     page_base.click_link('xpath', login_page.links['forgot_your_password'])  # Step 1
-    app.enter_username(pwd_reset_page.inputs['username'], login_data.logins['correct_value'])  # Step 2
+    page_base.fill_input('xpath', pwd_reset_page.inputs['username'], login_data.logins['correct_value'])  # Step 2
     page_base.click_button('xpath', pwd_reset_page.buttons['cancel'])  # Step 3
-    assert wd.current_url == login_page.page_url  # Step 4
+    assert wd.current_url == login_page.page_url  # Assertion 1
     session.quit_session()
 
 
@@ -106,8 +113,10 @@ PRECONDITIONS:
 STEPS:
 1. Click the 'Forgot your password' link. -> 'Reset Password' modal is displayed.
 2. Click the 'Reset Password' button. -> Button is clicked, error message beneath 'Username' input is displayed.
-3. ASSERTION - check if current URL matches password reset page URL.
-4. ASSERTION - check if displayed error message text is what it should be.
+
+ASSERTIONS:
+1. Check if current URL matches password reset page URL.
+2. Check if displayed error message text is what it should be.
 """
 
 
@@ -115,8 +124,8 @@ def test_password_reset_empty_username():
     page_base.navigate_to_page(login_page.page_url)  # Precondition 2
     page_base.click_link('xpath', login_page.links['forgot_your_password'])  # Step 1
     page_base.click_button('xpath', pwd_reset_page.buttons['reset_password'])  # Step 2
-    assert wd.current_url == pwd_reset_page.page_url  # Step 3
+    assert wd.current_url == pwd_reset_page.page_url  # Assertion 1
     page_base.wait_for_element_to_be_visible('xpath', pwd_reset_page.error_messages['missing_username'])
     assert wd.find_element(page_base.types['xpath'], pwd_reset_page.error_messages['missing_username']).text == \
-           pwd_reset_data.error_message_value  # Step 4
+           pwd_reset_data.error_messages['missing_username']  # Assertion 2
     session.quit_session()

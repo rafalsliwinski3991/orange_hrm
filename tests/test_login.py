@@ -31,18 +31,19 @@ STEPS:
 2. Fill the 'username' field. -> Username is entered.
 3. Fill the 'password' field. -> Password is entered.
 4. Click the 'Login' button. -> Button is clicked, dashboard page is displayed.
-5. ASSERTION - check if current URL matches dashboard page URL.
-6. Log out from the application. -> Login page is displayed.
+
+ASSERTIONS:
+1. Check if current URL matches dashboard page URL.
 """
 
 
 def test_login_successful():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_username(login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
-    app.enter_password(login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 3
+    page_base.fill_input('xpath', login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
+    page_base.fill_input('xpath', login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 3
     page_base.click_button('xpath', login_page.buttons['login'])  # Step 4
-    assert wd.current_url == dashboard_page.page_url  # Step 5
-    app.logout_from_app()  # Step 6
+    assert wd.current_url == dashboard_page.page_url  # Assertion 1
+    app.logout_from_app()
     session.quit_session()
 
 
@@ -57,20 +58,22 @@ STEPS:
 2. Fill the 'username' field. -> Username is entered.
 3. Fill the 'password' field. -> Password is entered.
 4. Click the 'Login' button. -> Button is clicked, error message is displayed.
-5. ASSERTION - check if current URL matches login page URL.
-6. ASSERTION - check if displayed error message text is what it should be.
+
+ASSERTIONS:
+1. Check if current URL matches login page URL.
+2. Check if displayed error message text is what it should be.
 """
 
 
 def test_login_incorrect_username():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_username(login_page.inputs['login'], login_data.logins['incorrect_value'])  # Step 2
-    app.enter_password(login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 3
+    page_base.fill_input('xpath', login_page.inputs['login'], login_data.logins['incorrect_value'])  # Step 2
+    page_base.fill_input('xpath', login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 3
     page_base.click_button('xpath', login_page.buttons['login'])  # Step 4
-    assert wd.current_url == login_page.page_url  # Step 5
+    assert wd.current_url == login_page.page_url  # Assertion 1
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['invalid_credentials'])
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['invalid_credentials']).text == \
-           login_data.error_message_value['invalid_credentials']  # Step 6
+           login_data.error_message_value['invalid_credentials']  # Assertion 2
     session.quit_session()
 
 
@@ -85,20 +88,22 @@ STEPS:
 2. Fill the 'username' field. -> Username is entered.
 3. Fill the 'password' field. -> Password is entered.
 4. Click the 'Login' button. -> Button is clicked, error message is displayed.
-5. ASSERTION - check if current URL matches login page URL.
-6. ASSERTION - check if displayed error message text is what it should be.
+
+ASSERTIONS:
+1. Check if current URL matches login page URL.
+2. Check if displayed error message text is what it should be.
 """
 
 
 def test_login_incorrect_password():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_username(login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
-    app.enter_password(login_page.inputs['password'], login_data.passwords['incorrect_value'])  # Step 3
+    page_base.fill_input('xpath', login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
+    page_base.fill_input('xpath', login_page.inputs['password'], login_data.passwords['incorrect_value'])  # Step 3
     page_base.click_button('xpath', login_page.buttons['login'])  # Step 4
-    assert wd.current_url == login_page.page_url  # Step 5
+    assert wd.current_url == login_page.page_url  # Assertion 1
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['invalid_credentials'])
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['invalid_credentials']).text == \
-           login_data.error_message_value['invalid_credentials']  # Step 6
+           login_data.error_message_value['invalid_credentials']  # Assertion 2
     session.quit_session()
 
 
@@ -112,19 +117,21 @@ STEPS:
 1. Navigate to login page. -> Login page is displayed.
 2. Fill the 'password' field. -> Password is entered.
 3. Click the 'Login' button. -> Button is clicked, error message under username input is displayed.
-4. ASSERTION - check if current URL matches login page URL.
-5. ASSERTION - check if displayed error message text is what it should be.
+
+ASSERTIONS:
+1. Check if current URL matches login page URL.
+2. Check if displayed error message text is what it should be.
 """
 
 
 def test_login_no_username():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_password(login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 2
+    page_base.fill_input('xpath', login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 2
     page_base.click_button('xpath', login_page.buttons['login'])  # Step 3
-    assert wd.current_url == login_page.page_url  # Step 4
+    assert wd.current_url == login_page.page_url  # Assertion 1
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['missing_username'])
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['missing_username']).text == \
-           login_data.error_message_value['missing_username']  # Step 5
+           login_data.error_message_value['missing_username']  # Assertion 2
     session.quit_session()
 
 
@@ -138,19 +145,21 @@ STEPS:
 1. Navigate to login page. -> Login page is displayed.
 2. Fill the 'username' field. -> Username is entered.
 3. Click the 'Login' button. -> Button is clicked, error message under password input is displayed.
-4. ASSERTION - check if current URL matches login page URL.
-5. ASSERTION - check if displayed error message text is what it should be.
+
+ASSERTIONS:
+1. Check if current URL matches login page URL.
+2. Check if displayed error message text is what it should be.
 """
 
 
 def test_login_no_password():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
-    app.enter_username(login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
+    page_base.fill_input('xpath', login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
     page_base.click_button('xpath', login_page.buttons['login'])  # Step 3
-    assert wd.current_url == login_page.page_url  # Step 4
+    assert wd.current_url == login_page.page_url  # Assertion 1
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['missing_password'])
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['missing_password']).text == \
-           login_data.error_message_value['missing_password']  # Step 5
+           login_data.error_message_value['missing_password']  # Assertion 2
     session.quit_session()
 
 
@@ -163,19 +172,21 @@ PRECONDITIONS:
 STEPS:
 1. Navigate to login page. -> Login page is displayed.
 2. Click the 'Login' button. -> Button is clicked, error messages under username and password inputs are displayed.
-3. ASSERTION - check if current URL matches login page URL.
-4. ASSERTION - check if displayed error messages texts are what they should be.
+
+ASSERTIONS:
+1. Check if current URL matches login page URL.
+2. Check if displayed error messages texts are what they should be.
 """
 
 
 def test_login_no_username_and_password():
     page_base.navigate_to_page(login_page.page_url)  # Step 1
     page_base.click_button('xpath', login_page.buttons['login'])  # Step 2
-    assert wd.current_url == login_page.page_url  # Step 3
+    assert wd.current_url == login_page.page_url  # Assertion 1
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['missing_username'])
     page_base.wait_for_element_to_be_visible('xpath', login_page.error_messages['missing_password'])
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['missing_username']).text == \
-           login_data.error_message_value['missing_username']
+           login_data.error_message_value['missing_username']  # Assertion 2
     assert wd.find_element(page_base.types['xpath'], login_page.error_messages['missing_password']).text == \
-           login_data.error_message_value['missing_password']  # Step 4
+           login_data.error_message_value['missing_password']  # Assertion 2
     session.quit_session()

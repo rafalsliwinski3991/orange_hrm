@@ -26,7 +26,9 @@ PRECONDITIONS:
 STEPS:
 1. Click the icon next to the user avatar. -> Dropdown list is expanded.
 2. Click the 'Logout' option. -> Login page is displayed.
-3. ASSERTION - check if current URL matches login page URL.
+
+ASSERTIONS:
+1. Check if current URL matches login page URL.
 """
 
 
@@ -34,5 +36,5 @@ def test_logout():
     app.login_to_app()  # Precondition 1
     page_base.click_element('xpath', header.user_dropdown)  # Step 1
     page_base.click_element('xpath', header.logout_option)  # Step 2
-    assert wd.current_url == login_page.page_url  # Step 3
+    assert wd.current_url == login_page.page_url  # Assertion 1
     session.quit_session()
