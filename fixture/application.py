@@ -9,10 +9,14 @@ import repo.orange_hrm.pages.PIM_tab.employee_list_page as employee_list_page
 
 class Application(PageBase):
 
-    def login_to_app(self):
+    def login_to_app_as(self, role, login_value='', password_value=''):
         self.navigate_to_page(login_page.page_url)
-        self.fill_input('xpath', login_page.inputs['login'], login_data.logins['correct_value'])
-        self.fill_input('xpath', login_page.inputs['password'], login_data.passwords['correct_value'])
+        if role == 'admin':
+            self.fill_input('xpath', login_page.inputs['login'], login_data.logins['correct_value'])
+            self.fill_input('xpath', login_page.inputs['password'], login_data.passwords['correct_value'])
+        elif role == 'employee':
+            self.fill_input('xpath', login_page.inputs['login'], login_value)
+            self.fill_input('xpath', login_page.inputs['password'], password_value)
         self.click_button('xpath', login_page.buttons['login'])
 
     def logout_from_app(self):

@@ -19,21 +19,9 @@ page_base = PageBase(wd, 10)
 app = Application(wd, 10)
 session = SessionHelper()
 
-"""
-PRECONDITIONS:
-1. User exists and is logged in.
-
-STEPS:
-1. Click the icon next to the user avatar. -> Dropdown list is expanded.
-2. Click the 'Logout' option. -> Login page is displayed.
-
-ASSERTIONS:
-1. Check if current URL matches login page URL.
-"""
-
 
 def test_logout():
-    app.login_to_app()  # Precondition 1
+    app.login_to_app_as('admin')  # Precondition 1
     page_base.click_element('xpath', header.user_dropdown)  # Step 1
     page_base.click_element('xpath', header.logout_option)  # Step 2
     assert wd.current_url == login_page.page_url  # Assertion 1

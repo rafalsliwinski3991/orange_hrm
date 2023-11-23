@@ -20,31 +20,9 @@ page_base = PageBase(wd, 10)
 app = Application(wd, 10)
 session = SessionHelper()
 
-"""
-Test: test_adding_employee_successfully_without_login_details
-
-PRECONDITIONS:
-1. User with admin credentials exists and is logged in.
-2. 'PIM' page/'Add Employee' subpage is displayed.
-
-STEPS:
-1. Fill the 'First Name' field. -> First name is entered.
-2. Fill the 'Middle Name' field. -> Middle name is entered.
-3. Fill the 'Last Name' field. -> Last name is entered.
-4. Fill the 'Employee Id' field. -> Employee Id is entered.
-5. Click the 'Save' button. -> Button is clicked, 'Personal Details' subpage is displayed.
-
-ASSERTIONS:
-1. Check if displayed 'Employee First Name' matches data entered in Step #1. 
-2. Check if displayed 'Employee Middle Name' matches data entered in Step #2.
-3. Check if displayed 'Employee Last Name' matches data entered in Step #3.
-4. Check if displayed 'Employee Id' matches data entered in Step #4.
-5. Check if avatar's header matches data entered in STEP #1 and #3.
-"""
-
 
 def test_adding_employee_successfully_without_login_details():
-    app.login_to_app()  # Precondition 1
+    app.login_to_app_as('admin')  # Precondition 1
     page_base.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     page_base.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -78,35 +56,8 @@ def test_adding_employee_successfully_without_login_details():
     session.quit_session()
 
 
-"""
-Test: test_adding_employee_successfully_with_login_details
-
-PRECONDITIONS:
-1. User with admin credentials exists and is logged in.
-2. 'PIM' page/'Add Employee' subpage is displayed.
-
-STEPS:
-1. Fill the 'First Name' field. -> First name is entered.
-2. Fill the 'Middle Name' field. -> Middle name is entered.
-3. Fill the 'Last Name' field. -> Last name is entered.
-4. Fill the 'Employee Id' field. -> Employee Id is entered.
-5. Click the 'Create Login Details' slider button. -> Login details section is displayed.
-6. Fill the 'Username' field. -> Username is entered.
-7. Fill the 'Password' field. -> Password is entered.
-8. Fill the 'Confirm Password' field. -> Password is entered.
-9. Click the 'Save' button. -> Button is clicked, 'Personal Details' subpage is displayed.
-
-ASSERTIONS:
-1. Check if displayed 'Employee First Name' matches data entered in Step #1. 
-2. Check if displayed 'Employee Middle Name' matches data entered in Step #2.
-3. Check if displayed 'Employee Last Name' matches data entered in Step #3.
-4. Check if displayed 'Employee Id' matches data entered in Step #4.
-5. Check if avatar's header matches data entered in STEP #1 and #3.
-"""
-
-
 def test_adding_employee_successfully_with_login_details():
-    app.login_to_app()  # Precondition 1
+    app.login_to_app_as('admin')  # Precondition 1
     page_base.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     page_base.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -145,30 +96,8 @@ def test_adding_employee_successfully_with_login_details():
     session.quit_session()
 
 
-"""
-Test: test_adding_employee_with_empty_login_details
-
-PRECONDITIONS:
-1. User with admin credentials exists and is logged in.
-2. 'PIM' page/'Add Employee' subpage is displayed.
-
-STEPS:
-1. Fill the 'First Name' field. -> First name is entered.
-2. Fill the 'Middle Name' field. -> Middle name is entered.
-3. Fill the 'Last Name' field. -> Last name is entered.
-4. Fill the 'Employee Id' field. -> Employee Id is entered.
-5. Click the 'Create Login Details' slider button. -> Login details section is displayed.
-6. Click the 'Save' button. -> Button is clicked, error messages are displayed beneath 'Username', 'Password' and 
-'Confirm Password' inputs.
-
-ASSERTIONS:
-1. Check if current URL matches 'PIM' page/'Add Employee' subpage URL.
-2. Check if displayed error messages texts are what they should be.
-"""
-
-
 def test_adding_employee_with_empty_login_details():
-    app.login_to_app()  # Precondition 1
+    app.login_to_app_as('admin')  # Precondition 1
     page_base.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     page_base.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -196,27 +125,8 @@ def test_adding_employee_with_empty_login_details():
     session.quit_session()
 
 
-"""
-Test: test_adding_employee_cancelled_without_login_details_filled
-
-PRECONDITIONS:
-1. User with admin credentials exists and is logged in.
-2. 'PIM' page/'Add Employee' subpage is displayed.
-
-STEPS:
-1. Fill the 'First Name' field. -> First name is entered.
-2. Fill the 'Middle Name' field. -> Middle name is entered.
-3. Fill the 'Last Name' field. -> Last name is entered.
-4. Fill the 'Employee Id' field. -> Employee Id is entered.
-5. Click the 'Cancel' button. -> Button is clicked, 'Employee List' subpage is displayed.
-
-ASSERTIONS:
-1. Check if current URL matches 'Employee List' subpage URL.
-"""
-
-
 def test_adding_employee_cancelled_without_login_details_filled():
-    app.login_to_app()  # Precondition 1
+    app.login_to_app_as('admin')  # Precondition 1
     page_base.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     page_base.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -233,31 +143,8 @@ def test_adding_employee_cancelled_without_login_details_filled():
     session.quit_session()
 
 
-"""
-Test: test_adding_employee_cancelled_with_login_details_filled
-
-PRECONDITIONS:
-1. User with admin credentials exists and is logged in.
-2. 'PIM' page/'Add Employee' subpage is displayed.
-
-STEPS:
-1. Fill the 'First Name' field. -> First name is entered.
-2. Fill the 'Middle Name' field. -> Middle name is entered.
-3. Fill the 'Last Name' field. -> Last name is entered.
-4. Fill the 'Employee Id' field. -> Employee Id is entered.
-5. Click the 'Create Login Details' slider button. -> Login details section is displayed.
-6. Fill the 'Username' field. -> Username is entered.
-7. Fill the 'Password' field. -> Password is entered.
-8. Fill the 'Confirm Password' field. -> Password is entered.
-9. Click the 'Cancel' button. -> Button is clicked, 'Employee List' subpage is displayed.
-
-ASSERTIONS:
-1. Check if current URL matches 'Employee List' subpage URL.
-"""
-
-
 def test_adding_employee_cancelled_with_login_details_filled():
-    app.login_to_app()  # Precondition 1
+    app.login_to_app_as('admin')  # Precondition 1
     page_base.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     page_base.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -279,27 +166,8 @@ def test_adding_employee_cancelled_with_login_details_filled():
     session.quit_session()
 
 
-"""
-Test: test_adding_employee_without_first_name
-
-PRECONDITIONS:
-1. User with admin credentials exists and is logged in.
-2. 'PIM' page/'Add Employee' subpage is displayed.
-
-STEPS:
-1. Fill the 'Middle Name' field. -> Middle name is entered.
-2. Fill the 'Last Name' field. -> Last name is entered.
-3. Fill the 'Employee Id' field. -> Employee Id is entered.
-4. Click the 'Save' button. -> Button is clicked, error message beneath 'First Name' input is displayed.
-
-ASSERTIONS:
-1. Check if current URL matches 'PIM' page/'Add Employee' subpage URL.
-2. Check if displayed error message text is what it should be.
-"""
-
-
 def test_adding_employee_without_first_name():
-    app.login_to_app()  # Precondition 1
+    app.login_to_app_as('admin')  # Precondition 1
     page_base.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     page_base.fill_input('xpath', add_employee_page.inputs['middle_name'], add_employee_data.inputs['middle_name'])
     # Step 1
@@ -315,29 +183,10 @@ def test_adding_employee_without_first_name():
            add_employee_data.error_messages['missing_first_name']  # Assertion 2
     app.logout_from_app()
     session.quit_session()
-
-
-"""
-Test: test_adding_employee_without_last_name
-
-PRECONDITIONS:
-1. User with admin credentials exists and is logged in.
-2. 'PIM' page/'Add Employee' subpage is displayed.
-
-STEPS:
-1. Fill the 'First Name' field. -> First name is entered.
-2. Fill the 'Middle Name' field. -> Middle name is entered.
-3. Fill the 'Employee Id' field. -> Employee Id is entered.
-4. Click the 'Save' button. -> Button is clicked, error message beneath 'Last Name' input is displayed.
-
-ASSERTIONS:
-1. Check if current URL matches 'PIM' page/'Add Employee' subpage URL.
-2. Check if displayed error message text is what it should be.
-"""
 
 
 def test_adding_employee_without_last_name():
-    app.login_to_app()  # Precondition 1
+    app.login_to_app_as('admin')  # Precondition 1
     page_base.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     page_base.fill_input('xpath', add_employee_page.inputs['middle_name'], add_employee_data.inputs['middle_name'])
     # Step 1
@@ -355,27 +204,8 @@ def test_adding_employee_without_last_name():
     session.quit_session()
 
 
-"""
-Test: test_adding_employee_without_first_and_last_name
-
-PRECONDITIONS:
-1. User with admin credentials exists and is logged in.
-2. 'PIM' page/'Add Employee' subpage is displayed.
-
-STEPS:
-1. Fill the 'Middle Name' field. -> Middle name is entered.
-2. Fill the 'Employee Id' field. -> Employee Id is entered.
-3. Click the 'Save' button. -> Button is clicked, error messages beneath 'First Name' and 'Last Name' inputs are 
-displayed.
-
-ASSERTIONS:
-1. Check if current URL matches 'PIM' page/'Add Employee' subpage URL.
-2. Check if displayed error messages texts are what they should be. 
-"""
-
-
 def test_adding_employee_without_first_and_last_name():
-    app.login_to_app()  # Precondition 1
+    app.login_to_app_as('admin')  # Precondition 1
     page_base.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     page_base.fill_input('xpath', add_employee_page.inputs['middle_name'], add_employee_data.inputs['middle_name'])
     # Step 1

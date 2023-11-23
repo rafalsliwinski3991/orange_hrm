@@ -1,0 +1,9 @@
+PRECONDITIONS:
+1. User exists and is logged in.
+
+STEPS:
+1. Click the icon next to the user avatar. -> Dropdown list is expanded.
+2. Click the 'Logout' option. -> Login page is displayed.
+
+ASSERTIONS:
+1. Check if current URL matches login page URL.
