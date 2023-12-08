@@ -30,14 +30,35 @@ class Application(PageBase):
             self.wd.find_element(self.types['xpath'],
                                  add_employee_page.inputs['employee_id']).send_keys(Keys.BACKSPACE)
 
-    def find_user_by(self, search_criteria, value):
+    def find_employee_by(self, search_criteria, value):
         self.navigate_to_page(employee_list_page.page_url)
         if search_criteria == 'employee_id':
             self.fill_input('xpath', employee_list_page.inputs['employee_id'], value)
         self.click_button('xpath', employee_list_page.buttons['search'])
 
-    def delete_user(self, search_criteria, value):
-        self.find_user_by(search_criteria, value)
+    def add_employee(self, details, first_name='', middle_name='', last_name='', employee_id='',
+                     username='', password='', confirm_password=''):
+        self.navigate_to_page(add_employee_page.page_url)
+        if details == 'yes':
+            self.fill_input('xpath', add_employee_page.inputs['first_name'], first_name)
+            self.fill_input('xpath', add_employee_page.inputs['middle_name'], middle_name)
+            self.fill_input('xpath', add_employee_page.inputs['last_name'], last_name)
+            self.clear_employee_id_input()
+            self.fill_input('xpath', add_employee_page.inputs['employee_id'], employee_id)
+            self.click_button('xpath', add_employee_page.buttons['create_login_details'])
+            self.fill_input('xpath', add_employee_page.inputs['username'], username)
+            self.fill_input('xpath', add_employee_page.inputs['password'], password)
+            self.fill_input('xpath', add_employee_page.inputs['confirm_password'], confirm_password)
+        else:
+            self.fill_input('xpath', add_employee_page.inputs['first_name'], first_name)
+            self.fill_input('xpath', add_employee_page.inputs['middle_name'], middle_name)
+            self.fill_input('xpath', add_employee_page.inputs['last_name'], last_name)
+            self.clear_employee_id_input()
+            self.fill_input('xpath', add_employee_page.inputs['employee_id'], employee_id)
+        self.click_button('xpath', add_employee_page.buttons['save'])
+
+    def delete_employee(self, search_criteria, value):
+        self.find_employee_by(search_criteria, value)
         self.wait_for_text_to_be_present('xpath', '//div[text()="{}"]'.format(value), value)
         if self.wd.find_element('xpath', '//span[text()="(1) Record Found"]').get_attribute('innerText') == \
                 '(1) Record Found':

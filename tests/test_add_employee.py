@@ -51,7 +51,7 @@ def test_adding_employee_successfully_without_login_details():
     page_base.wait_for_text_to_be_present('xpath', personal_details_page.avatar_header, 'Thomas Anderson')
     assert wd.find_element(page_base.types['xpath'], personal_details_page.avatar_header).text \
            == add_employee_data.inputs['first_name'] + ' ' + add_employee_data.inputs['last_name']  # Assertion 5
-    app.delete_user('employee_id', add_employee_data.inputs['employee_id'])
+    app.delete_employee('employee_id', add_employee_data.inputs['employee_id'])
     app.logout_from_app()
     session.quit_session()
 
@@ -91,7 +91,7 @@ def test_adding_employee_successfully_with_login_details():
     page_base.wait_for_text_to_be_present('xpath', personal_details_page.avatar_header, 'Thomas Anderson')
     assert wd.find_element(page_base.types['xpath'], personal_details_page.avatar_header).text \
            == add_employee_data.inputs['first_name'] + ' ' + add_employee_data.inputs['last_name']  # Assertion 5
-    app.delete_user('employee_id', add_employee_data.inputs['employee_id'])
+    app.delete_employee('employee_id', add_employee_data.inputs['employee_id'])
     app.logout_from_app()
     session.quit_session()
 
