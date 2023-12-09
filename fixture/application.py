@@ -5,6 +5,7 @@ import repo.orange_hrm.pages.login_page as login_page
 import repo.orange_hrm.pages.header as header
 import repo.orange_hrm.pages.PIM_tab.add_employee_page as add_employee_page
 import repo.orange_hrm.pages.PIM_tab.employee_list_page as employee_list_page
+import repo.orange_hrm.data.PIM_tab.add_employee_page as add_employee_data
 
 
 class Application(PageBase):
@@ -66,3 +67,10 @@ class Application(PageBase):
             self.click_button('xpath', employee_list_page.buttons['removal_confirmation'])
         else:
             pass
+
+    def quit_session(self):
+        self.wd.quit()
+
+    def cleanup(self):
+        self.delete_employee('employee_id', add_employee_data.inputs['employee_id'])
+        self.logout_from_app()
