@@ -19,19 +19,25 @@ app = Application(wd, 10)
 
 
 @pytest.fixture()
-def destroy(request):
+def logout(request):
+    fixture = Application(wd, 10)
+    request.addfinalizer(app.logout_from_app)
+    return fixture
+
+
+@pytest.fixture()
+def quit_session(request):
     fixture = Application(wd, 10)
     request.addfinalizer(app.quit_session)
     return fixture
 
 
-def test_login_successful():
+def test_login_successful(logout):
     app.navigate_to_page(login_page.page_url)  # Step 1
     app.fill_input('xpath', login_page.inputs['login'], login_data.logins['correct_value'])  # Step 2
     app.fill_input('xpath', login_page.inputs['password'], login_data.passwords['correct_value'])  # Step 3
     app.click_button('xpath', login_page.buttons['login'])  # Step 4
     assert wd.current_url == dashboard_page.page_url  # Assertion 1
-    app.logout_from_app()
 
 
 def test_login_incorrect_username():
@@ -76,7 +82,7 @@ def test_login_no_password():
            login_data.error_message_value['missing_password']  # Assertion 2
 
 
-def test_login_no_username_and_password(destroy):
+def test_login_no_username_and_password(quit_session):
     app.navigate_to_page(login_page.page_url)  # Step 1
     app.click_button('xpath', login_page.buttons['login'])  # Step 2
     assert wd.current_url == login_page.page_url  # Assertion 1

@@ -59,6 +59,18 @@ class Application:
             self.fill_input('xpath', login_page.inputs['password'], password_value)
         self.click_button('xpath', login_page.buttons['login'])
 
+    def login_to_app_as_admin(self):
+        self.navigate_to_page(login_page.page_url)
+        self.fill_input('xpath', login_page.inputs['login'], login_data.logins['correct_value'])
+        self.fill_input('xpath', login_page.inputs['password'], login_data.passwords['correct_value'])
+        self.click_button('xpath', login_page.buttons['login'])
+
+    def login_to_app_as_employee(self, login_value, password_value):
+        self.navigate_to_page(login_page.page_url)
+        self.fill_input('xpath', login_page.inputs['login'], login_value)
+        self.fill_input('xpath', login_page.inputs['password'], password_value)
+        self.click_button('xpath', login_page.buttons['login'])
+
     def logout_from_app(self):
         self.click_element('xpath', header.user_dropdown)
         self.click_element('xpath', header.logout_option)

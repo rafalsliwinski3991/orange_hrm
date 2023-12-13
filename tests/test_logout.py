@@ -18,14 +18,14 @@ app = Application(wd, 10)
 
 
 @pytest.fixture()
-def destroy(request):
+def quit_session(request):
     fixture = Application(wd, 10)
     request.addfinalizer(app.quit_session)
     return fixture
 
 
-def test_logout(destroy):
-    app.login_to_app_as('admin')  # Precondition 1
+def test_logout(quit_session):
+    app.login_to_app_as_admin()  # Precondition 1
     app.click_element('xpath', header.user_dropdown)  # Step 1
     app.click_element('xpath', header.logout_option)  # Step 2
     assert wd.current_url == login_page.page_url  # Assertion 1

@@ -19,6 +19,13 @@ app = Application(wd, 10)
 
 
 @pytest.fixture()
+def logout(request):
+    fixture = Application(wd, 10)
+    request.addfinalizer(app.logout_from_app)
+    return fixture
+
+
+@pytest.fixture()
 def cleanup(request):
     fixture = Application(wd, 10)
     request.addfinalizer(app.cleanup)
@@ -26,14 +33,14 @@ def cleanup(request):
 
 
 @pytest.fixture()
-def destroy(request):
+def quit_session(request):
     fixture = Application(wd, 10)
     request.addfinalizer(app.quit_session)
     return fixture
 
 
 def test_adding_employee_successfully_without_login_details(cleanup):
-    app.login_to_app_as('admin')  # Precondition 1
+    app.login_to_app_as_admin()  # Precondition 1
     app.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     app.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -65,7 +72,7 @@ def test_adding_employee_successfully_without_login_details(cleanup):
 
 
 def test_adding_employee_successfully_with_login_details(cleanup):
-    app.login_to_app_as('admin')  # Precondition 1
+    app.login_to_app_as_admin()  # Precondition 1
     app.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     app.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -101,8 +108,8 @@ def test_adding_employee_successfully_with_login_details(cleanup):
            == add_employee_data.inputs['first_name'] + ' ' + add_employee_data.inputs['last_name']  # Assertion 5
 
 
-def test_adding_employee_with_empty_login_details():
-    app.login_to_app_as('admin')  # Precondition 1
+def test_adding_employee_with_empty_login_details(logout):
+    app.login_to_app_as_admin()  # Precondition 1
     app.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     app.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -126,11 +133,10 @@ def test_adding_employee_with_empty_login_details():
     assert wd.find_element(app.types['xpath'],
                            add_employee_page.error_messages['missing_password_confirmation']).text == \
            add_employee_data.error_messages['missing_password_confirmation']  # Assertion 2
-    app.logout_from_app()
 
 
-def test_adding_employee_cancelled_without_login_details_filled():
-    app.login_to_app_as('admin')  # Precondition 1
+def test_adding_employee_cancelled_without_login_details_filled(logout):
+    app.login_to_app_as_admin()  # Precondition 1
     app.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     app.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -143,11 +149,10 @@ def test_adding_employee_cancelled_without_login_details_filled():
     # Step 4
     app.click_button('xpath', add_employee_page.buttons['cancel'])  # Step 5
     assert wd.current_url == personal_details_page.page_url  # Assertion 1
-    app.logout_from_app()
 
 
-def test_adding_employee_cancelled_with_login_details_filled():
-    app.login_to_app_as('admin')  # Precondition 1
+def test_adding_employee_cancelled_with_login_details_filled(logout):
+    app.login_to_app_as_admin()  # Precondition 1
     app.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     app.fill_input('xpath', add_employee_page.inputs['first_name'], add_employee_data.inputs['first_name'])
     # Step 1
@@ -165,11 +170,10 @@ def test_adding_employee_cancelled_with_login_details_filled():
                    add_employee_data.inputs['confirm_password'])  # Step 8
     app.click_button('xpath', add_employee_page.buttons['cancel'])  # Step 9
     assert wd.current_url == personal_details_page.page_url  # Assertion 1
-    app.logout_from_app()
 
 
-def test_adding_employee_without_first_name():
-    app.login_to_app_as('admin')  # Precondition 1
+def test_adding_employee_without_first_name(logout):
+    app.login_to_app_as_admin()  # Precondition 1
     app.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     app.fill_input('xpath', add_employee_page.inputs['middle_name'], add_employee_data.inputs['middle_name'])
     # Step 1
@@ -183,11 +187,10 @@ def test_adding_employee_without_first_name():
     app.wait_for_element_to_be_visible('xpath', add_employee_page.error_messages['missing_first_name'])
     assert wd.find_element(app.types['xpath'], add_employee_page.error_messages['missing_first_name']).text == \
            add_employee_data.error_messages['missing_first_name']  # Assertion 2
-    app.logout_from_app()
 
 
-def test_adding_employee_without_last_name():
-    app.login_to_app_as('admin')  # Precondition 1
+def test_adding_employee_without_last_name(logout):
+    app.login_to_app_as_admin()  # Precondition 1
     app.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     app.fill_input('xpath', add_employee_page.inputs['middle_name'], add_employee_data.inputs['middle_name'])
     # Step 1
@@ -201,11 +204,10 @@ def test_adding_employee_without_last_name():
     app.wait_for_element_to_be_visible('xpath', add_employee_page.error_messages['missing_first_name'])
     assert wd.find_element(app.types['xpath'], add_employee_page.error_messages['missing_first_name']).text == \
            add_employee_data.error_messages['missing_first_name']  # Assertion 2
-    app.logout_from_app()
 
 
-def test_adding_employee_without_first_and_last_name(destroy):
-    app.login_to_app_as('admin')  # Precondition 1
+def test_adding_employee_without_first_and_last_name(quit_session):
+    app.login_to_app_as_admin()  # Precondition 1
     app.navigate_to_page(add_employee_page.page_url)  # Precondition 2
     app.fill_input('xpath', add_employee_page.inputs['middle_name'], add_employee_data.inputs['middle_name'])
     # Step 1

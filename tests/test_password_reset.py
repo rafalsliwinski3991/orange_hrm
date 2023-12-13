@@ -21,7 +21,7 @@ app = Application(wd, 10)
 
 
 @pytest.fixture()
-def destroy(request):
+def quit_session(request):
     fixture = Application(wd, 10)
     request.addfinalizer(app.quit_session)
     return fixture
@@ -53,7 +53,7 @@ def test_password_reset_cancelled_with_username_filled():
     assert wd.current_url == login_page.page_url  # Assertion 1
 
 
-def test_password_reset_empty_username(destroy):
+def test_password_reset_empty_username(quit_session):
     app.navigate_to_page(login_page.page_url)  # Precondition 2
     app.click_link('xpath', login_page.links['forgot_your_password'])  # Step 1
     app.click_button('xpath', pwd_reset_page.buttons['reset_password'])  # Step 2
