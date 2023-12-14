@@ -1,12 +1,18 @@
+from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import repo.orange_hrm.data.login_page as login_data
-import repo.orange_hrm.pages.login_page as login_page
 import repo.orange_hrm.pages.header as header
+import repo.orange_hrm.pages.login_page as login_page
+import repo.orange_hrm.pages.dashboard_page as dashboard_page
+import repo.orange_hrm.pages.password_reset_page as pwd_reset_page
 import repo.orange_hrm.pages.PIM_tab.add_employee_page as add_employee_page
+import repo.orange_hrm.pages.password_reset_confirmation_page as pwd_confirmed_reset_page
 import repo.orange_hrm.pages.PIM_tab.employee_list_page as employee_list_page
+import repo.orange_hrm.pages.PIM_tab.employee_tab.personal_details_page as personal_details_page
+import repo.orange_hrm.data.login_page as login_data
+import repo.orange_hrm.data.password_reset_page as pwd_reset_data
 import repo.orange_hrm.data.PIM_tab.add_employee_page as add_employee_data
 
 
@@ -18,9 +24,21 @@ class Application:
         'xpath': By.XPATH
     }
 
-    def __init__(self, wd, wait):
-        self.wd = wd
+    def __init__(self, wait):
+        self.wd = webdriver.Chrome()
+        self.wd.maximize_window()
         self.wait = wait
+        self.header = header
+        self.login_page = login_page
+        self.dashboard_page = dashboard_page
+        self.pwd_reset_page = pwd_reset_page
+        self.pwd_confirmed_reset_page = pwd_confirmed_reset_page
+        self.add_employee_page = add_employee_page
+        self.employee_list_page = employee_list_page
+        self.personal_details_page = personal_details_page
+        self.login_data = login_data
+        self.pwd_reset_data = pwd_reset_data
+        self.add_employee_data = add_employee_data
 
     def navigate_to_page(self, page_url):
         self.wd.get(page_url)
