@@ -1,7 +1,7 @@
 Test: test_login_successful
 
 PRECONDITIONS:
-1. User exists and is logged out.
+1. User with admin credentials exists and is logged out.
 
 STEPS:
 1. Navigate to login page. -> Login page is displayed.
@@ -17,7 +17,7 @@ ASSERTIONS:
 Test: test_login_incorrect_username
 
 PRECONDITIONS:
-1. User exists and is logged out.
+1. User with admin credentials exists and is logged out.
 
 STEPS:
 1. Navigate to login page. -> Login page is displayed.
@@ -34,7 +34,7 @@ ASSERTIONS:
 Test: test_login_incorrect_password
 
 PRECONDITIONS:
-1. User exists and is logged out.
+1. User with admin credentials exists and is logged out.
 
 STEPS:
 1. Navigate to login page. -> Login page is displayed.
@@ -51,7 +51,7 @@ ASSERTIONS:
 Test: test_login_no_username
 
 PRECONDITIONS:
-1. User exists and is logged out.
+1. User with admin credentials exists and is logged out.
 
 STEPS:
 1. Navigate to login page. -> Login page is displayed.
@@ -67,7 +67,7 @@ ASSERTIONS:
 Test: test_login_no_password
 
 PRECONDITIONS:
-1. User exists and is logged out.
+1. User with admin credentials exists and is logged out.
 
 STEPS:
 1. Navigate to login page. -> Login page is displayed.
@@ -83,7 +83,7 @@ ASSERTIONS:
 Test: test_login_no_username_and_password
 
 PRECONDITIONS:
-1. User exists and is logged out.
+1. User with admin credentials exists and is logged out.
 
 STEPS:
 1. Navigate to login page. -> Login page is displayed.

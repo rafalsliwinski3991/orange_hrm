@@ -1,7 +1,7 @@
 Test: test_logout
 
 PRECONDITIONS:
-1. User exists and is logged in.
+1. User with admin credentials exists and is logged in.
 
 STEPS:
 1. Click the icon next to the user avatar. -> Dropdown list is expanded.
